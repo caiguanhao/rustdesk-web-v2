@@ -1,4 +1,3 @@
-import {getServerConf} from "./ljw.js?v=7"
 import {ids as langIds, lang} from './lang.js?v=7'
 import {F as ka, J as H4, L as K4, l as Le, m as r, P as ha, s as ga, z as e4} from "./vendor.js?v=0b990c6e";
 
@@ -11809,9 +11808,6 @@ window.setByName = (u, e) => {
             break;
         case"option:local": {
             let n = JSON.parse(e);
-            if (n.name == 'access_token' && n.value) {
-                getServerConf(n.value)
-            }
             n.name === "verifier" && kt(n.value), n.name === "user_info" && (n.value || kt("")), Nt(n.name, n.value), n.name === "input-source" && m4(), n.name == "lang" && Kn()
         }
             break;
