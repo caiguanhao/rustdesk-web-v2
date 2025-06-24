@@ -12118,6 +12118,13 @@ window.init = async () => {
         console.error("Failed to init: " + u.message), onInitFinished()
     }
 };
+window.initdb = async () => {
+    try {
+        await N.init()
+    } catch (e) {
+        console.error("Failed to init db: " + e.message)
+    }
+};
 window.onunload = () => {
     console.log("window close"), $a()
 };
@@ -12424,7 +12431,7 @@ async function kt(u) {
 
 async function Aa(u) {
     try {
-        return new TextDecoder().decode(await _4(u, "IycjQd4TmWvjjLnYd796Rd+XkK+KG+7GU1Ia7u4+vSw=")).split(":")
+        return new TextDecoder().decode(await _4(u, window.publicKey)).split(":")
     } catch (e) {
         return console.error("Failed to decode: " + e.message), []
     }
