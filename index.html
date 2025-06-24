@@ -15,7 +15,6 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=8fcccd9a"/>
 
     <title>RustDesk</title>
-    <script src="/webclient-config/index.js"></script>
     <link rel="manifest" href="manifest.json"/>
     <script type="module" crossorigin src="js/dist/index.js?v=ddbe54f1"></script>
     <link rel="modulepreload" href="js/dist/vendor.js?v=0b990c6e"/>
@@ -245,6 +244,35 @@
             return;
         }
         scriptLoaded = true;
+
+        if (window.opener) {
+            window.addEventListener('message', (event) => {
+                if (event.data.type === 'Configs' && event.data.publicKey && event.data.setByName) {
+                    window.publicKey = event.data.publicKey;
+                    (async () => {
+                        await window.initdb();
+                        event.data.setByName.forEach(item => {
+                            const type = item.type;
+                            delete item.type;
+                            window.setByName(type, JSON.stringify(item))
+                        })
+                        _loadMainDartJs();
+                    })();
+                } else {
+                    _loadMainDartJs();
+                }
+            });
+            const id = window.location.hash.replace(/^[#\/]*/, '').replace(/\D.*$/, '');
+            window.opener.postMessage({
+                type: 'GetConfigs',
+                id: id,
+            }, '*');
+        } else {
+            _loadMainDartJs();
+        }
+    }
+
+    function _loadMainDartJs() {
         var scriptTag = document.createElement("script");
         scriptTag.src = "main.dart.js?v=6d16cb80";
         scriptTag.type = "application/javascript";
