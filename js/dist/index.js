@@ -8149,6 +8149,7 @@ const cu = () => {
     const n = cu(), a = n[u] || {};
     i == null ? delete a[e] : a[e] = i, a.tm = new Date().getTime(), n[u] = a, h4(n)
 }, f4 = u => m.getItem(`option:local:${u}`), Nt = (u, e) => {
+    if (u === 'last_remote_id') return
     m.setItem(`option:local:${u}`, e)
 }, Nn = u => m.getItem(`option:flutter:local:${u}`), On = (u, e) => {
     m.setItem(`option:flutter:local:${u}`, e)
