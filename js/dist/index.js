@@ -12032,7 +12032,7 @@ function gr(u, e) {
         case"version":
             return c4;
         case"load_recent_peers":
-            Sr();
+            // Sr();
             break;
         case"load_fav_peers":
             zr();
